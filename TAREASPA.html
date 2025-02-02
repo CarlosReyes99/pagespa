@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Acta Nacimiento - SPA</title>
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+      color: #333;
+      line-height: 1.4;
+    }
+
+    /* Barra superior simulando la de gob.mx */
+    header {
+      background-color: #6c0d2e; /* Color vino típico */
+      color: #fff;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    header .header-url {
+      font-size: 14px;
+      margin-right: 20px;
+    }
+    header .header-title {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    /* Contenedor principal */
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      border: 1px solid #ddd;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      font-size: 24px;
+      color: #6c0d2e;
+    }
+
+    p {
+      margin-bottom: 15px;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      margin-bottom: 15px;
+    }
+    .tab {
+      cursor: pointer;
+      padding: 10px 20px;
+      border: 1px solid #ccc;
+      background-color: #eee;
+      margin-right: 2px;
+      font-weight: bold;
+    }
+    .tab.active {
+      background-color: #fff;
+      border-bottom: 1px solid #fff;
+    }
+
+    /* Contenido de los tabs */
+    .tab-content {
+      border: 1px solid #ccc;
+      padding: 20px;
+      display: none; /* Por defecto oculto */
+      background-color: #fff;
+    }
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Formulario */
+    form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+    label {
+      font-weight: bold;
+      margin-bottom: 5px;
+      display: inline-block;
+    }
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 7px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    /* Sección de reporte de práctica */
+    .reporte {
+      margin-top: 40px;
+      border: 1px solid #ddd;
+      padding: 20px;
+    }
+    .reporte h2 {
+      font-size: 18px;
+      background-color: #ddd;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+    .reporte table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    .reporte table th,
+    .reporte table td {
+      border: 1px solid #ccc;
+      padding: 8px 12px;
+      text-align: left;
+    }
+    .urls {
+      margin-top: 10px;
+    }
+    .urls p {
+      margin-bottom: 8px;
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Barra superior -->
+  <header>
+    <div class="header-url">www.gob.mx/ActaNacimiento/</div>
+    <div class="header-title">Gobierno de México</div>
+  </header>
+
+  <!-- Contenedor principal -->
+  <div class="container">
+    <h1>Búsqueda</h1>
+    <p>
+      Puedes realizar la búsqueda del acta de nacimiento por cualquiera de estos métodos:
+    </p>
+    <ol style="margin-bottom: 20px; padding-left: 20px;">
+      <li>Con la Clave Única de Registro de Población (CURP).</li>
+      <li>A través de los datos personales.</li>
+    </ol>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <div class="tab active" data-tab="tab-curp">Clave Única de Registro de Población (CURP)</div>
+      <div class="tab" data-tab="tab-datos">Datos Personales</div>
+    </div>
+
+    <!-- Contenido de tab CURP -->
+    <div id="tab-curp" class="tab-content active">
+      <form>
+        <div style="grid-column: span 2;">
+          <label for="curp">Clave Única de Registro de Población</label>
+          <input type="text" id="curp" placeholder="Ingresa tu CURP" />
+        </div>
+      </form>
+    </div>
+
+    <!-- Contenido de tab Datos Personales -->
+    <div id="tab-datos" class="tab-content">
+      <form>
+        <div>
+          <label for="nombre">Nombre(s)*</label>
+          <input type="text" id="nombre" placeholder="Ingresa tu nombre(s)" />
+        </div>
+        <div>
+          <label for="primer-apellido">Primer Apellido*</label>
+          <input type="text" id="primer-apellido" placeholder="Ingresa tu primer apellido" />
+        </div>
+        <div>
+          <label for="segundo-apellido">Segundo Apellido</label>
+          <input type="text" id="segundo-apellido" placeholder="Ingresa tu segundo apellido" />
+        </div>
+        <div>
+          <label for="dia-nacimiento">Día de Nacimiento*</label>
+          <select id="dia-nacimiento">
+            <option value="">Selecciona el día</option>
+            <!-- Opciones 1-31 -->
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <!-- ... -->
+          </select>
+        </div>
+        <div>
+          <label for="mes-nacimiento">Mes de Nacimiento*</label>
+          <select id="mes-nacimiento">
+            <option value="">Selecciona el mes</option>
+            <option value="1">Enero</option>
+            <option value="2">Febrero</option>
+            <!-- ... -->
+          </select>
+        </div>
+        <div>
+          <label for="anio-nacimiento">Año de Nacimiento*</label>
+          <input type="text" id="anio-nacimiento" placeholder="Ingresa el año Ej. 1943" />
+        </div>
+        <div>
+          <label for="sexo">Sexo*</label>
+          <select id="sexo">
+            <option value="">Selecciona el sexo</option>
+            <option value="F">Femenino</option>
+            <option value="M">Masculino</option>
+          </select>
+        </div>
+        <div>
+          <label for="estado">Estado*</label>
+          <select id="estado">
+            <option value="">Selecciona el estado</option>
+            <option value="CDMX">Ciudad de México</option>
+            <option value="JAL">Jalisco</option>
+            <!-- ... -->
+          </select>
+        </div>
+      </form>
+    </div>
+
+    <!-- Reporte de práctica -->
+    <div class="reporte">
+      <h2>Reporte de Práctica</h2>
+      <table>
+        <tr>
+          <th>Nombre del estudiante</th>
+          <th>Fecha</th>
+        </tr>
+        <tr>
+          <td>___________________</td>
+          <td>____/____/______</td>
+        </tr>
+      </table>
+
+      <div class="urls">
+        <p>URL del repositorio de código Github: 
+          <strong>https://github.com/nombreestudiante/practica1</strong>
+        </p>
+        <p>URL del hosting web: 
+          <strong>http://estudiante.host27.com/practica1</strong>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Script para manejar tabs sin recargar la página (SPA)
+    const tabs = document.querySelectorAll('.tab');
+    const contents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Quitar la clase 'active' de todos los tabs y contenidos
+        tabs.forEach(t => t.classList.remove('active'));
+        contents.forEach(c => c.classList.remove('active'));
+
+        // Activar el tab actual
+        tab.classList.add('active');
+        // Mostrar el contenido correspondiente
+        const targetId = tab.getAttribute('data-tab');
+        document.getElementById(targetId).classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
